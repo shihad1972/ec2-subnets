@@ -1,0 +1,22 @@
+---
+
+- name: Get VPC facts
+  ec2_vpc_net_facts:
+    region: "{{ region }}"
+    filters:
+      "tag:Name" : "{{ vpc_name }}"
+  register: vpc_facts
+  when: vpc_name is defined
+
+- name: Set VPC ID in fact
+  set_fact:
+    vpc_id: "{{ vpc_facts.vpcs[0].id }}"
+  when: vpc_id is not defined
+
+- name: Get route table facts
+  ec2_vpc_route_table_facts:
+    region: "{{ region }}"
+    filters:
+      vpc_id: "{{ vpc_id }}"
+  register: ec2_table
+

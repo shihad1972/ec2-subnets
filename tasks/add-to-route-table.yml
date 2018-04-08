@@ -1,0 +1,20 @@
+---
+
+- name: create dict of route table id's
+  set_fact:
+     add_table: "{{ add_table|default({}) | combine ({ item.tags.Name: { 'id': item.id } }) }}"
+  with_items:
+    - "{{ ec2_table.route_tables }}"
+
+- name: add subnets to route table
+  ec2_vpc_route_table:
+    vpc_id: "{{ vpc_id }}"
+    state: present
+    purge_subnets: false
+    lookup: id
+    route_table_id: "{{ add_table[item.subnet.tags.route_table].id }}"
+    subnets:
+      - "{{ item.subnet.id }}"
+  no_log: true
+  with_items:
+    - "{{ new_subnets.results }}"

@@ -1,0 +1,8 @@
+---
+# tasks file for ec2-subnets
+
+- include: vpc-route-table.yml
+- include: subnets.yml
+  when: vpc_subnets is defined
+- include: add-to-route-table.yml
+  when: add_route_table is defined

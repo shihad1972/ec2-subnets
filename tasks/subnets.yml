@@ -1,0 +1,12 @@
+---
+
+- name: Manage EC2 subnets
+  ec2_vpc_subnet:
+    state: "{{ item.state|default('present') }}"
+    region: "{{ region }}"
+    az: "{{ item.az|default('') }}"
+    cidr: "{{ item.cidr }}"
+    tags: "{{ item.res_tags|default({}) }}"
+    vpc_id: "{{ vpc_id }}"
+  with_items: "{{ vpc_subnets }}"
+  register: new_subnets
