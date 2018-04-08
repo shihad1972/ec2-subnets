@@ -98,5 +98,5 @@ GPL
 Author Information
 ------------------
 
-Iain M Conochie <iain.conochie@nttdata.com>
+Iain M Conochie <iain@shihad.org>
 
