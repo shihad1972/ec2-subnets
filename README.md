@@ -29,6 +29,7 @@ The following variables need set in this role:
 
             Data definition of the subnets. Requires cidr, az and a dict of
             res_tags. See below for further details
+  region: AWS region
 
 Dependencies
 ------------
@@ -44,6 +45,7 @@ internet facing.
     - hosts: localhost
       vars:
         vpc_name: OAT-Production
+        region: eu-west-1
         vpc_subnets:
           - state: present
             az: eu-west-1a

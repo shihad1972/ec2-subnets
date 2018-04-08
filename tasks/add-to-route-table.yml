@@ -8,6 +8,7 @@
 
 - name: add subnets to route table
   ec2_vpc_route_table:
+    region: "{{ region }}"
     vpc_id: "{{ vpc_id }}"
     state: present
     purge_subnets: false
