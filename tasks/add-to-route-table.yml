@@ -12,10 +12,11 @@
     vpc_id: "{{ vpc_id }}"
     state: present
     purge_subnets: false
+    purge_routes: false
     lookup: id
     route_table_id: "{{ add_table[item.subnet.tags.route_table].id }}"
     subnets:
       - "{{ item.subnet.id }}"
-  no_log: true
+#  no_log: true
   with_items:
     - "{{ new_subnets.results }}"
