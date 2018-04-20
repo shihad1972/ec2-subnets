@@ -9,4 +9,5 @@
     tags: "{{ item.res_tags|default({}) }}"
     vpc_id: "{{ vpc_id }}"
   with_items: "{{ vpc_subnets }}"
+  no_log: true
   register: new_subnets
