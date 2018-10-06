@@ -1,5 +1,10 @@
 ---
 
+# These 2 tasks add the subnet to the routing table based on
+# the route_table tag of the subnet. This tag is the name
+# of the routing table to add the subnet to. From the name we can
+# lookup the ID.
+
 - name: create dict of route table id's
   set_fact:
      add_table: "{{ add_table|default({}) | combine ({ item.tags.Name: { 'id': item.id } }) }}"
@@ -22,4 +27,4 @@
   with_items:
     - "{{ new_subnets.results }}"
   loop_control:
-    label: "{{ item.subnet.id }}"
+    label: "{{ item.subnet.id }} {{ item.subnet.tags.route_table }}"
